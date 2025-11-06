@@ -2,10 +2,8 @@
 
 from __future__ import annotations
 
-import logging
-import os
-from typing import Any
 import json
+import logging
 
 from openai import OpenAI
 
@@ -69,7 +67,9 @@ class OpenAIAnalyzer:
                 messages=[
                     {
                         "role": "system",
-                        "content": "You are a helpful assistant analyzing news articles.",
+                        "content": (
+                            "You are a helpful assistant analyzing news articles."
+                        ),
                     },
                     {"role": "user", "content": prompt},
                 ],
@@ -105,9 +105,8 @@ def save_analysis_to_file(
 ) -> None:
     """Save analysis results to a file."""
     data = {"question": question, "articles_count": len(articles), "answer": answer}
-    file = open(filename, "w")
-    json.dump(data, file)
-    file.close()
+    with open(filename, "w") as file:
+        json.dump(data, file)
 
 
 def get_article_summaries(articles: list[Article]) -> list[str]:
