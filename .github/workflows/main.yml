@@ -27,4 +27,8 @@ jobs:
         run: uv run mypy src
 
       - name: pytest
+        env:
+          GUARDIAN_API_KEY: "Test-api-key"
+          NEWSAPI_API_KEY: "Test-api-key"
+          OPENAI_API_KEY: "Test-api-key"
         run: uv run pytest -n auto
