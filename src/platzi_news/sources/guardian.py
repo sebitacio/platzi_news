@@ -16,14 +16,14 @@ class GuardianAPI(NewsSource):
     BASE_URL = "https://content.guardianapis.com/search"
 
     def __init__(self) -> None:
-        self.api_key = settings.guardian_api_key
+        self.api_key: str = settings.guardian_api_key
 
     def fetch_articles(self, query: str) -> list[Article]:
         """Fetch articles from The Guardian."""
         logger = logging.getLogger(__name__)
         logger.debug(f"Fetching articles from The Guardian for query: {query}")
 
-        params = {
+        params: dict[str, str | int] = {
             "q": query,
             "api-key": self.api_key,
             "show-fields": "headline,trailText,shortUrl",
