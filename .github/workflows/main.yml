@@ -1,0 +1,30 @@
+name: Code Style
+
+on:
+  push:
+    branches: [main, develop, master]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  uv:
+    name: python
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@6
+
+      - name: ruff check
+        run: uv run ruff check
+
+      - name: ruff format
+        run: uv run ruff format
+
+      - name: mypy
+        run: uv run mypy src
+
+      - name: pytest
+        run: uv run pytest -n auto
